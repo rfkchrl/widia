@@ -29,7 +29,8 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        // 'brandLabel' => Yii::$app->name,
+        'brandLabel' => "SI STT NF",
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -40,6 +41,15 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
+            ['label' => 'Gallery', 'url' => ['/site/gallery']],
+            ['label' => 'Master Data',
+                'items' => [
+            ['label' => 'Pegawai', 'url' => ['/pegawai']],
+            ['label' => 'Divisi', 'url' => ['/divisi']],
+            ['label' => 'Jabatan', 'url' => ['/jabatan']],
+           
+            ],
+        ],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
