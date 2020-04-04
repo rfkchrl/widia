@@ -26,6 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+    <center>
+     <img src="<?= Yii::$app->request->baseUrl;?>
+     /images/<?= $model->foto; ?>" width="15%" />
+    <center>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

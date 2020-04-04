@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+//tambahan
+use yii\web\UploadedFile;
+
 /**
  * PegawaiController implements the CRUD actions for Pegawai model.
  */
@@ -62,18 +65,46 @@ class PegawaiController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+    // public function actionCreate()
+    // {
+    //     $model = new Pegawai();
+
+    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //         return $this->redirect(['view', 'id' => $model->id]);
+    //     }
+
+    //     return $this->render('create', [
+    //         'model' => $model,
+    //     ]);
+    // }
+
     public function actionCreate()
     {
-        $model = new Pegawai();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
+         $model = new Pegawai();
+         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+         //-----proses awal upload file-------------
+         $model->fotoFile = UploadedFile::getInstance($model, 'fotoFile');
+         if($model->validate() && !empty($model->fotoFile))
+         {
+             //simpan nama file foto dgn nip dan extension file yg diupload
+             $nama = $model->nip.'.'.$model->fotoFile->extension;
+             //simpan nama file foto ke field foto pada model
+             $model->foto = $nama;
+             //simpan semua data2 ke model Pegawai
+             $model->save();
+             //simpan fisik gambar ke folder images
+             $model->fotoFile->saveAs('images/'.$nama);
+         }
+         else{
+            $model->save();
+         }
+         //--------proses akhir upload file-----------
+         return $this->redirect(['view', 'id' => $model->id]);
+         }
+         return $this->render('create', [
+         'model' => $model,
+         ]);
+     }
 
     /**
      * Updates an existing Pegawai model.

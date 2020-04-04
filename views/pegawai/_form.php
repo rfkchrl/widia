@@ -18,7 +18,10 @@ $listJabatan = ArrayHelper::map(Jabatan::find()->asArray()->all(),'id','nama');
 
 <div class="pegawai-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <!-- <?php $form = ActiveForm::begin(); ?> -->
+    <?php $form = ActiveForm::begin(
+        ['options'=>['enctype'=>'multipart/form-data']]
+     ); ?>
 
     <?= $form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
 
@@ -50,7 +53,8 @@ $listJabatan = ArrayHelper::map(Jabatan::find()->asArray()->all(),'id','nama');
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'foto')->textInput(['maxlength' => true]) ?>
+    <!-- <?= $form->field($model, 'foto')->textInput(['maxlength' => true]) ?> -->
+    <?= $form->field($model, 'fotoFile')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

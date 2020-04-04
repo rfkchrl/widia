@@ -29,6 +29,9 @@ class Pegawai extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    public $fotoFile;
+
     public static function tableName()
     {
         return 'pegawai';
@@ -52,6 +55,14 @@ class Pegawai extends \yii\db\ActiveRecord
              [['email'], 'email'],
             [['iddivisi'], 'exist', 'skipOnError' => true, 'targetClass' => Divisi::className(), 'targetAttribute' => ['iddivisi' => 'id']],
             [['idjabatan'], 'exist', 'skipOnError' => true, 'targetClass' => Jabatan::className(), 'targetAttribute' => ['idjabatan' => 'id']],
+
+            //tambahan rule upload file
+             [['fotoFile'], 'file',
+                 'extensions' => 'jpg,jpeg,png,gif',
+                 'maxSize'=>'256000', // max 250 KB
+                 'skipOnEmpty'=>true, //boleh kosong
+             ],
+
         ];
     }
 
@@ -72,6 +83,7 @@ class Pegawai extends \yii\db\ActiveRecord
             'alamat' => 'Alamat',
             'email' => 'Email',
             'foto' => 'Foto',
+            'fotoFile' => 'File Foto',
         ];
     }
 
